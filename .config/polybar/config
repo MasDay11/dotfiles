@@ -1,0 +1,463 @@
+
+;--------------------------------------------> COLORS
+[col]
+1 = #131519
+2 = #1d2126
+3 = #323b3f
+4 = #ff70ec
+5 = #2b88c5
+6 = #9bbfbf
+7 = #ffffff 
+8 = #64f859
+
+; 1-3 = dark grey
+; 4 = pink
+; 5 = blue
+; 6 = cyan green
+; 7 = white
+; 8 = green
+
+
+;---------------------------------------------> BAR
+
+[bar/masday]
+width = 100%
+height = 26
+radius = 0
+fixed-center = false
+
+background = ${col.1}
+foreground = ${col.6}
+
+line-size = 4
+line-color = #f00
+
+
+;---------------------------------------------> BAR SIZE
+
+;border-size = 0
+border-right-size = 7
+border-left-size = 7
+border-top-size = 7
+border-color = #00000000
+
+padding-left = 2
+padding-right = 2
+
+module-margin-left = 0
+module-margin-right = 0
+
+
+;---------------------------------------------> FONTS
+
+font-0 = MADE TOMMY:pixelsize=8;2
+font-1 = Noto Sans CJK JP:pixelsize=7.5:antilias=true;2
+font-2 = FuraCode Nerd Font:pixelsize=13:antialias=true;3.5
+font-3 = FuraCode Nerd Font:pixelsize=11:antialias=true;3.5
+;font-3 = Iosevka Nerd Font:pixelsize=13:antialias=true;3.5
+
+
+;---------------------------------------------> CONTENT
+
+modules-left = apps sp pltime player 
+modules-center = 
+modules-right = i3 sp pulseaudio pl-prev pl-play-pause pl-next sp xkeyboard sp wlan battery date sp power
+
+;tray-position = right
+;tray-padding = 2
+;tray-maxsize = 11
+;tray-detach = true
+;tray-scale = 1.0
+;tray-background = ${col.2}
+;tray-overline = ${col.1}
+;tray-underline = ${col.1}
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+
+;---------------------------------------------> WINDOW TITLE
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
+
+;;---------------------------------------------> SEPARATOR
+
+[module/sp]
+type = custom/text
+content = "  "
+
+
+;---------------------------------------------> SCRIPTS
+
+[module/power]
+type = custom/text
+content =  
+content-background = ${col.2}
+content-overline = ${col.1}
+content-underline = ${col.1}
+content-foreground = ${col.8}
+content-padding = 2
+click-left = sh /home/masday/.config/rofi/setting/power.sh
+
+[module/apps]
+type = custom/text
+content =  
+content-background = ${col.2}
+content-overline = ${col.1}
+content-underline = ${col.1}
+content-foreground = ${col.5}
+content-padding = 2
+click-left = sh ~/.config/polybar/script/rofi.sh
+
+
+;---------------------------------------------> PLAYER CONTROL
+
+[module/player]
+type = custom/script
+tail = true
+format-prefix = " "
+format = <label>
+format-foreground = ${col.6}
+exec = ~/.config/polybar/script/scroll_player_status.sh
+
+[module/pltime]
+type = custom/script
+tail = true
+format-prefix = " "
+format = <label>
+exec = ~/.config/polybar/script/get_time_status.sh
+
+[module/pl-prev]
+type = custom/script
+exec = echo "   "
+format = <label>
+label-background = ${col.2}
+label-overline = ${col.1}
+label-underline = ${col.1}
+label-foreground = ${col.4}
+label-padding = 0
+click-left = playerctl --all-players previous
+
+[module/pl-play-pause]
+type = custom/script
+exec = echo " "
+format = <label>
+label-background = ${col.2}
+label-overline = ${col.1}
+label-underline = ${col.1}
+label-padding = 0
+click-left = playerctl --all-players play-pause
+
+[module/pl-next]
+type = custom/script
+exec = echo " "
+format = <label>
+label-background = ${col.2}
+label-overline = ${col.1}
+label-underline = ${col.1}
+label-foreground = ${col.4}
+label-padding = 0
+click-left = playerctl --all-players next
+
+
+;---------------------------------------------> KEYBOARD
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+format = <label-indicator>
+format-spacing = 0
+
+format-prefix = 
+format-prefix-background = ${col.2}
+format-prefix-overline = ${col.1}
+format-prefix-underline = ${col.1}
+format-prefix-foreground = ${col.4}
+format-prefix-padding = 2
+
+label-indicator-on-capslock = "CAPS"
+label-indicator-off-capslock = "  EN"
+
+label-indicator-on-capslock-background = ${col.2}
+label-indicator-on-capslock-overline = ${col.1}
+label-indicator-on-capslock-underline = ${col.1}
+label-indicator-on-capslock-padding = 2
+
+label-indicator-off-capslock-background = ${col.2}
+label-indicator-off-capslock-overline = ${col.1}
+label-indicator-off-capslock-underline = ${col.1}
+label-indicator-off-capslock-padding = 3
+
+
+;---------------------------------------------> DISK
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+label-mounted =   %total%
+label-mounted-background = ${col.2}
+label-mounted-overline = ${col.1}
+label-mounted-underline = ${col.1}
+label-mounted-padding = 1
+
+
+;---------------------------------------------> WORKSPACE
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+; Only show workspaces on the same output as the bar
+;pin-workspaces = true
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${col.2}
+
+; focused = Active workspace on focused monitor
+label-focused = %{T4}%{T-}
+;label-focused = %index%
+label-focused-background = ${col.2}
+label-focused-underline = ${col.1}
+label-focused-overline = ${col.1}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %{T4}%{T-}
+label-unfocused-padding = 2
+label-unfocused-foreground = ${col.4}
+
+; visible = Active workspace on unfocused monitor
+label-visible = %{T4}%{T-}
+label-visible-background = ${col.3}
+label-visible-underline = ${col.1}
+label-visible-overline = ${col.1}
+label-visible-padding = 2
+
+; urgent = Workspace with urgency hint set
+label-urgent = %{T4}%{T-}
+label-urgent-background = ${col.3}
+label-urgent-underline = ${col.1}
+label-urgent-overline = ${col.1}
+label-urgent-padding = 2
+
+; Separator in between workspaces
+; label-separator = |
+
+
+;---------------------------------------------> WLAN
+
+[module/wlan]
+type = internal/network
+interface = wlo1
+interval = 3.0
+
+format-connected-prefix = " "
+format-connected-background = ${col.2}
+format-connected-overline = ${col.1}
+format-connected-foreground =${col.4}
+format-connected-underline = ${col.1}
+format-connected-padding = 2
+
+    label-connected = %{A1:xterm -geometry 50x30+990+50 -e nmtui & disown:}   ONL%{A}
+    label-connected-background = ${col.2}
+    label-connected-foreground = ${col.6}
+    label-connected-overline = ${col.1}
+    label-connected-underline = ${col.1}
+    label-connected-padding = 2
+
+format-disconnected-prefix = " "
+format-disconnected-background = ${col.2}
+format-disconnected-overline = ${col.1}
+format-disconnected-foreground =${col.4}
+format-disconnected-underline = ${col.1}
+format-disconnected-padding = 2
+
+    label-disconnected = %{A1:xterm -geometry 50x30+990+50  -e nmtui & disown:}   DIS%{A}
+    label-disconnected-background = ${col.2}
+    label-disconnected-foreground = ${col.6}
+    label-disconnected-overline = ${col.1}
+    label-disconnected-underline = ${col.1}
+    label-disconnected-padding = 2
+
+
+;---------------------------------------------> NET SPEED
+
+[module/netspd]
+type = internal/network
+interface = wlo1
+interval = 1.0
+format-connected = <label-connected>
+    label-connected =  %downspeed:3%  %upspeed:3%
+    label-connected-foreground = ${col.8}
+    label-connected-background = ${col.2}
+    label-connected-overline = ${col.1}
+    label-connected-underline = ${col.1}
+    label-connected-padding = 1
+
+
+;---------------------------------------------> ETH
+
+[module/eth]
+type = internal/network
+interface = enp4s0
+interval = 3.0
+
+label-connected =    ON
+label-connected-background = ${col.2}
+label-connected-overline = ${col.1}
+label-connected-underline = ${col.1}
+label-connected-padding = 1
+
+label-disconnected =   DIS
+label-disconnected-background = ${col.2}
+label-disconnected-overline = ${col.1}
+label-disconnected-underline = ${col.1}
+label-disconnected-padding = 1
+
+
+;---------------------------------------------> DATE
+
+[module/date]
+type = internal/date
+interval = 1
+
+date =
+date-alt = " %d-%m-%Y"
+
+time = "%H:%M"
+time-alt =
+
+format-prefix = "  " 
+format-prefix-foreground = ${col.4}
+format-background = ${col.2}
+format-overline = ${col.1}
+format-underline = ${col.1}
+format-padding = 2
+
+label = %date% %time%
+
+
+;---------------------------------------------> AUDIO
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = <label-volume>
+format-volume-prefix = "         "  
+format-volume-background = ${col.2}
+format-volume-overline = ${col.1}
+format-volume-underline = ${col.1}
+format-volume-padding = 0
+format-volume-foreground = ${col.4}
+
+    label-volume = %percentage%%
+    label-volume-background = ${col.2}
+    label-volume-overline = ${col.1}
+    label-volume-underline = ${col.1}
+    label-volume-padding = 0
+    label-volume-foreground = ${col.6}
+
+format-muted-prefix = "       "  
+format-muted-background = ${col.2}
+format-muted-overline = ${col.1}
+format-muted-underline = ${col.1}
+format-muted-padding = 0
+format-muted-foreground = ${col.4}
+
+    label-muted = MUTE
+    label-muted-background = ${col.2}
+    label-muted-overline = ${col.1}
+    label-muted-underline = ${col.1}
+    label-muted-padding = 0
+    label-muted-foreground = ${col.6}
+
+
+;---------------------------------------------> BATTERY
+
+[module/battery]
+type = internal/battery
+battery = BAT1
+adapter = ACAD
+full-at = 98
+
+format-charging-prefix = "    "
+format-charging-background =${col.2}
+format-charging-overline = ${col.1}
+format-charging-foreground = ${col.4}
+format-charging-underline = ${col.1}
+format-charging-padding = 2
+
+    label-charging = %percentage%%
+    label-charging-background =${col.2}
+    label-charging-overline = ${col.1}
+    label-charging-foreground = ${col.6}
+    label-charging-underline = ${col.1}
+    label-charging-padding = 2
+
+format-discharging-prefix = "    "
+format-discharging-background =${col.2}
+format-discharging-overline = ${col.1}
+format-discharging-foreground = ${col.4}
+format-discharging-underline = ${col.1}
+format-discharging-padding = 2
+
+    label-discharging = %percentage%%
+    label-discharging-background =${col.2}
+    label-discharging-overline = ${col.1}
+    label-discharging-foreground = ${col.6}
+    label-discharging-underline = ${col.1}
+    label-discharging-padding = 2
+
+format-full-prefix = "   "
+format-full-background =${col.2}
+format-full-overline = ${col.1}
+format-full-foreground = ${col.4}
+format-full-underline = ${col.1}
+format-full-padding = 2
+
+    label-full = %percentage%%
+    label-full-background =${col.2}
+    label-full-overline = ${col.1}
+    label-full-foreground = ${col.6}
+    label-full-underline = ${col.1}
+    label-full-padding = 2
+
+
+;---------------------------------------------> TEMPERATURE
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+label =   %temperature-c%
+label-background =${col.2}
+label-overline = ${col.1}
+label-foreground = ${col.8}
+label-underline = ${col.1}
+label-padding = 1
+
+
+;---------------------------------------------> MISC
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+;pseudo-transparency = false
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+; vim:ft=dosini

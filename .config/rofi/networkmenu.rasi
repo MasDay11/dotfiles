@@ -1,0 +1,56 @@
+@import "setting/settings.rasi"
+
+* {
+  background-color: @col1;
+  font: "Arial 8";
+}
+window {
+  width: 275px;
+  height: 400px;
+  anchor: south west;
+  location: south west;
+  x-offset: 6px;
+  y-offset: -41px;
+  transparency: 0.5;
+  border-radius: 6px;
+}
+
+heading {
+    orientation: horizontal;
+    background-image: @network-header;
+    expand: false; 
+    padding: 35px;
+    background-color: transparent;
+}
+
+mainbox {
+  background-color: @col1;
+  children: [heading,listview];
+}
+
+listview {
+  spacing: 10px;
+  padding: 0px 20px 20px 20px;
+  background-color: transparent;
+}
+
+element {
+  background-color: @col2;
+  padding: 10px 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  children: [element-text];
+}
+
+
+element selected {
+  background-color: @col3;
+  border: 0px solid 0px solid 1px solid 0px solid;
+  border-color: @col8;
+}
+
+element-text {
+  color: @col7;
+  background-color: transparent;
+  cursor: inherit;
+}

@@ -1,0 +1,37 @@
+@import "setting/settings.rasi"
+
+* {
+    icon-font: "Iosevka Nerd Font 20";
+    background-color: @col1;
+}
+
+window {
+    width: 480px;
+    border-radius: 8px;
+}
+
+mainbox {
+    children: [listview];
+}
+
+listview {
+    columns: 5;
+    lines: 1;
+    children: [element-text];
+    padding: 10px 15px 10px -5px;
+}
+
+element-text {
+    background-color: @col2;
+    horizontal-align: 0.6;
+    padding: 20px 10px;
+    font: @icon-font;
+    border-radius: 10px;
+    color: @col4;
+    cursor: pointer;
+}
+
+element-text selected {
+    background-color: @col6;
+    color: @col1;
+}

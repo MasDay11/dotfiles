@@ -1,0 +1,13 @@
+* {
+col1: #131519;
+col2: #1d2126;
+col3: #323b3f;
+col4: #ff70ec;
+col5: #2b88c5;
+col6: #9bbfbf;
+col7: #ffffff; 
+col8: #64f859;
+
+  network-header: url("/home/masday/.config/rofi/setting/launcher-header.png", height);
+  launcher-header: url("/home/masday/.config/rofi/setting/launcher-header.png", height);
+}

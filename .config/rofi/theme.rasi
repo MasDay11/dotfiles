@@ -1,0 +1,73 @@
+@import "setting/settings.rasi"
+
+* {
+  background-color: @bg;
+  font: "MADE TOMMY 9.5";
+}
+window {
+  width: 700px;
+  height: 500px;
+  border-radius: 0px;
+}
+
+mainbox {
+  background-color: @col1;
+}
+
+inputbar {
+  padding: 0px 0px 0px 0px;
+  background-color: transparent;
+  children: [entry];
+  padding: 50px 0px;
+  background-image: @launcher-header;
+}
+
+entry {
+  background-color: @col2;
+  padding: 5px;
+  margin: 0px 200px;
+  horizontal-align: 0.5;
+  color: @col7;
+  border-radius: 5px;
+  placeholder: "Search";
+  placeholder-color: @col7;
+}
+
+listview {
+  columns: 3;
+  spacing: 10px;
+  fixed-columns: true;
+  background-color: transparent;
+  padding: 3%;
+}
+
+element {
+  orientation: vertical;
+  background-color: transparent;
+  padding: 16px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+element selected {
+  background-color: @col6;
+}
+
+element-icon {
+  background-color: transparent;
+  size: 42;
+  horizontal-align: 0.5;
+  cursor: inherit;
+}
+
+element-text {
+  horizontal-align: 0.5;
+  color: @col4;
+  background-color: transparent;
+  padding: 4px 10px;
+  cursor: inherit;
+}
+
+element-text selected {
+  color: @col1;
+}
